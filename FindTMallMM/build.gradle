@@ -1,10 +1,11 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
 
     defaultConfig {
+        applicationId "com.amytech.findtmallmm"
         minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
@@ -20,8 +21,5 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:support-v4:22.2.1'
-    compile 'com.loopj.android:android-async-http:1.4.8'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
-    compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
+    compile project(':BaseFramework')
 }
