@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 半透明黑色 -->
+    <color name="color_black_alpha">#AA000000</color>
+
+    <!-- 默认界面颜色 -->
+    <color name="color_base_background">#2B2B2B</color>
+    <color name="color_base_sub_background">#111111</color>
+
+    <!-- 默认标题颜色 -->
+    <color name="color_base_title">#D8BF6A</color>
+    <color name="color_base_subtitle">#A5C261</color>
+    <color name="color_base_body">#BABABA</color>
+
+    <!-- Topbar标题颜色 -->
+    <color name="color_topbar_bg">#3C3F41</color>
+
+</resources>
