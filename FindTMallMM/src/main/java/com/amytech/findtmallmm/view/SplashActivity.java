@@ -29,8 +29,6 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        API.getInstance().post(null);
-
         final View logoView = findViewById(R.id.splash_logo);
         final View appNameView = findViewById(R.id.splash_name);
         final View enterView = findViewById(R.id.splash_enter);

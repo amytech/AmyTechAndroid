@@ -28,6 +28,8 @@ public abstract class BaseActivity extends SherlockActivity {
 
     protected Handler handler = new Handler();
 
+    protected ActionBar actionBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(getDefaultTheme());
@@ -35,7 +37,8 @@ public abstract class BaseActivity extends SherlockActivity {
 
         setContentView(getLayoutID());
 
-        initActionBar(getSupportActionBar());
+        actionBar = getSupportActionBar();
+        initActionBar(actionBar);
 
         initViews();
     }
