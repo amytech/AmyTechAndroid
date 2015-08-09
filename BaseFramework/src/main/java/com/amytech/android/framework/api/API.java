@@ -14,13 +14,13 @@ import java.util.Map;
 public class API {
 
     public interface APIListener {
-        void onAPIStart();
+        void onAPIStart(int api);
 
-        void onAPIFinish();
+        void onAPIFinish(int api);
 
-        void onAPISuccess(APIResponse response);
+        void onAPISuccess(int api, APIResponse response);
 
-        void onAPIFailure(int errorCode, String errorMessage);
+        void onAPIFailure(int api, int errorCode, String errorMessage);
     }
 
     private static API instance;
@@ -41,7 +41,7 @@ public class API {
         return instance;
     }
 
-    public void post(int api, Map<String, String> params, final APIListener listener) {
+    public void post(final int api, Map<String, String> params, final APIListener listener) {
         APIRequest request = new APIRequest(API_LIST.getAPPID(), API_LIST.getAppSecret());
         if (params != null) {
             request.setParams(params);
@@ -62,7 +62,7 @@ public class API {
             public void onStart() {
                 super.onStart();
                 if (listener != null) {
-                    listener.onAPIStart();
+                    listener.onAPIStart(api);
                 }
             }
 
@@ -70,7 +70,7 @@ public class API {
             public void onFinish() {
                 super.onFinish();
                 if (listener != null) {
-                    listener.onAPIFinish();
+                    listener.onAPIFinish(api);
                 }
             }
 
@@ -83,9 +83,9 @@ public class API {
                         String errorMessage = response.optString("showapi_res_error");
                         JSONObject result = response.optJSONObject("showapi_res_body");
                         if (errorCode == 0) {
-                            listener.onAPISuccess(new APIResponse(errorCode, errorMessage, result));
+                            listener.onAPISuccess(api, new APIResponse(errorCode, errorMessage, result));
                         } else {
-                            listener.onAPIFailure(errorCode, errorMessage);
+                            listener.onAPIFailure(api, errorCode, errorMessage);
                         }
                     }
                 }
@@ -95,7 +95,7 @@ public class API {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
                 if (listener != null) {
-                    listener.onAPIFailure(-1, responseString);
+                    listener.onAPIFailure(api, -1, responseString);
                 }
             }
         });

@@ -3,6 +3,8 @@ package com.amytech.android.framework;
 import android.app.Application;
 import android.util.DisplayMetrics;
 
+import com.amytech.android.framework.utils.ImageUtils;
+
 /**
  * Created by marktlzhai on 2015/8/8.
  */
@@ -38,6 +40,8 @@ public class BaseApplication extends Application {
 
         // 初始化屏幕参数
         initDisplay();
+
+        ImageUtils.init(this);
     }
 
     /**

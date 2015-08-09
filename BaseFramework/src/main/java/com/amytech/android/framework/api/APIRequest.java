@@ -19,19 +19,19 @@ public class APIRequest implements Serializable {
 
     public String timestamp = "";
 
-    public Map<String, String> params = new HashMap<String, String>();
+    public Map<String, String> params;
 
     public APIRequest(String appID, String appSecret) {
         this.appID = appID;
         this.appSecret = appSecret;
         this.timestamp = TimeUtils.FORMAT_YYYYMMDDHHMMSS.format(new Date());
+        this.params = new HashMap<String, String>();
         this.params.put("showapi_appid", appID);
         this.params.put("showapi_sign", appSecret);
         this.params.put("showapi_timestamp", timestamp);
     }
 
     public void setParams(Map<String, String> params) {
-        this.params.clear();
         this.params.putAll(params);
     }
 
