@@ -65,11 +65,11 @@ public abstract class BaseActivity extends SherlockActivity {
         startActivityForResult(intent, requestCode);
     }
 
-    protected void showToast(String message) {
+    public void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    protected void showToast(int messageRes) {
+    public void showToast(int messageRes) {
         Toast.makeText(this, messageRes, Toast.LENGTH_SHORT).show();
     }
 }
