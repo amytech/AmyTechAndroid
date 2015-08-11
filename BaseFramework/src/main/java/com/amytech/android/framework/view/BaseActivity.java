@@ -5,11 +5,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewConfiguration;
 import android.view.Window;
 import android.widget.Toast;
+
+import com.amytech.android.framework.utils.SPUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -17,7 +20,7 @@ import java.lang.reflect.Method;
 /**
  * Created by marktlzhai on 2015/8/8.
  */
-public abstract class BaseActivity extends Activity {
+public abstract class BaseActivity extends FragmentActivity {
 
     protected abstract void loadData();
 
@@ -37,9 +40,13 @@ public abstract class BaseActivity extends Activity {
 
     protected ActionBar actionBar;
 
+    protected SPUtils spUtils;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        spUtils = new SPUtils(getClass().getName());
 
         setContentView(getLayoutID());
 
