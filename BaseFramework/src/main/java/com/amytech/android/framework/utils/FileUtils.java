@@ -358,6 +358,37 @@ public class FileUtils {
     /**
      * 将一个文本文件读取为List格式，每行数据为一个节点
      *
+     * @param charsetName
+     * @return
+     */
+    public static List<String> readFileToList(InputStream inputStream, String charsetName) {
+        BufferedReader reader = null;
+        List<String> fileContent = new ArrayList<String>();
+        try {
+            InputStreamReader is = new InputStreamReader(inputStream, charsetName);
+            reader = new BufferedReader(is);
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                fileContent.add(line);
+            }
+            reader.close();
+            return fileContent;
+        } catch (IOException e) {
+            throw new RuntimeException("IOException occurred. ", e);
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    throw new RuntimeException("IOException occurred. ", e);
+                }
+            }
+        }
+    }
+
+    /**
+     * 将一个文本文件读取为List格式，每行数据为一个节点
+     *
      * @param filePath
      * @param charsetName
      * @return

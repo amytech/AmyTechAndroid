@@ -4,11 +4,16 @@ import android.app.Application;
 import android.util.DisplayMetrics;
 
 import com.amytech.android.framework.utils.ImageUtils;
+import com.amytech.android.framework.utils.StringUtils;
+
+import cn.bmob.v3.Bmob;
 
 /**
  * Created by marktlzhai on 2015/8/8.
  */
-public class BaseApplication extends Application {
+public abstract class BaseApplication extends Application {
+
+    protected abstract String getServerAPPID();
 
     private static BaseApplication instance;
 
@@ -42,6 +47,10 @@ public class BaseApplication extends Application {
         initDisplay();
 
         ImageUtils.init(this);
+
+        if (StringUtils.isNotEmpty(getServerAPPID())) {
+            Bmob.initialize(this, getServerAPPID());
+        }
     }
 
     /**
