@@ -1,7 +1,5 @@
 package com.amytech.android.framework.utils;
 
-import java.util.List;
-
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.ComponentName;
@@ -17,6 +15,8 @@ import android.os.Bundle;
 import android.os.Process;
 
 import com.amytech.android.framework.BaseApplication;
+
+import java.util.List;
 
 /**
  * Title: AmyAndroidLib <br>
@@ -119,6 +119,14 @@ public class AppUtils {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         intent.setData(Uri.parse("market://details?id=" + packageName));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        BaseApplication.getInstance().startActivity(intent);
+    }
+
+    public static void openURI(Uri uri) throws Exception {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setData(uri);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         BaseApplication.getInstance().startActivity(intent);
     }

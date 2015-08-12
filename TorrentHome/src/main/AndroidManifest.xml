@@ -30,6 +30,11 @@
             android:label="@string/home_label"
             android:logo="@mipmap/ic_launcher"
             android:theme="@android:style/Theme.Holo.Light.DarkActionBar" />
+
+        <activity
+            android:name="com.amytech.torrenthome.core.view.SearchResultActivity"
+            android:label=""
+            android:theme="@android:style/Theme.Holo.Light.DarkActionBar" />
     </application>
 
 </manifest>

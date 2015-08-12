@@ -1,10 +1,14 @@
 package com.amytech.android.framework;
 
 import android.app.Application;
+import android.os.Environment;
 import android.util.DisplayMetrics;
 
+import com.amytech.android.framework.utils.AppUtils;
 import com.amytech.android.framework.utils.ImageUtils;
 import com.amytech.android.framework.utils.StringUtils;
+
+import java.io.File;
 
 import cn.bmob.v3.Bmob;
 
@@ -46,8 +50,6 @@ public abstract class BaseApplication extends Application {
         // 初始化屏幕参数
         initDisplay();
 
-        ImageUtils.init(this);
-
         if (StringUtils.isNotEmpty(getServerAPPID())) {
             Bmob.initialize(this, getServerAPPID());
         }
@@ -66,5 +68,9 @@ public abstract class BaseApplication extends Application {
 
     public static BaseApplication getInstance() {
         return instance;
+    }
+
+    public File getAppFolder() {
+        return new File(Environment.getExternalStorageDirectory(), "amytech/" + getPackageName());
     }
 }

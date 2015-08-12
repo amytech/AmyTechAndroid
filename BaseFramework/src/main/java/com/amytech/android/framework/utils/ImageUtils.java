@@ -1,12 +1,11 @@
 package com.amytech.android.framework.utils;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.squareup.picasso.Picasso;
 
 /**
  * Title: AmyAndroidLib <br>
@@ -20,20 +19,14 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
  */
 public class ImageUtils {
 
-    public static void init(Context context) {
-        ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context);
-        config.threadPriority(Thread.NORM_PRIORITY - 2);
-        config.denyCacheImageMultipleSizesInMemory();
-        config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
-        config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
-        config.tasksProcessingOrder(QueueProcessingType.LIFO);
-        config.writeDebugLogs(); // Remove for release app
-
-        // Initialize ImageLoader with configuration.
-        ImageLoader.getInstance().init(config.build());
-    }
-
-    public static void display(String url, ImageView view) {
-        ImageLoader.getInstance().displayImage(url, view);
+    public static void displayCenterInside(Context context, String url, ImageView view, int widthRes, int heightRes) {
+        Picasso.with(context)
+                .load(url)
+                .placeholder(new ColorDrawable(Color.TRANSPARENT))
+                .error(new ColorDrawable(Color.TRANSPARENT))
+                .resizeDimen(widthRes, heightRes)
+                .centerInside()
+                .tag(context)
+                .into(view);
     }
 }
