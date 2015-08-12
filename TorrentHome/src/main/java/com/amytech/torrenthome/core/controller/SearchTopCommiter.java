@@ -31,8 +31,8 @@ public class SearchTopCommiter {
         if (CollectionUtils.notEmpty(data)) {
             for (String metaData : data) {
                 String[] dataSplit = metaData.split(",");
-                if (dataSplit != null && dataSplit.length == 11) {
-                    commitData.add(new TorrentHomeSearchTop(Integer.valueOf(dataSplit[0]), dataSplit[1], dataSplit[2], dataSplit[3], dataSplit[4], dataSplit[5], dataSplit[6], dataSplit[7], dataSplit[8], dataSplit[9], dataSplit[10]));
+                if (dataSplit != null && dataSplit.length == 12) {
+                    commitData.add(new TorrentHomeSearchTop(Integer.valueOf(dataSplit[0]), dataSplit[1], dataSplit[2], dataSplit[3], dataSplit[4], dataSplit[5], dataSplit[6], dataSplit[7], dataSplit[8], dataSplit[9], dataSplit[10], dataSplit[11]));
                 }
             }
         }

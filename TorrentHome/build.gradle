@@ -1,20 +1,59 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        signing {
+            keyAlias 'amytech'
+            keyPassword 'wynztl060922'
+            storeFile file('E:/AmyTechAndroid/CommonFiles/publish.keystore')
+            storePassword 'wynztl060922'
+        }
+    }
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
-
     defaultConfig {
         applicationId "com.amytech.torrenthome"
         minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        signingConfig signingConfigs.signing
+        multiDexEnabled true
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.signing
+        }
+        debug {
+            signingConfig signingConfigs.signing
+        }
+    }
+    productFlavors {
+        _server {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Server"]
+        }
+        _360 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "360"]
+        }
+        _baidu {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
+        }
+        _qq {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "QQ"]
+        }
+        _app_china {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "AppChina"]
+        }
+        _1mobile {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "1Mobile"]
+        }
+        _an_zhi {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "AnZhi"]
+        }
+        _google {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Google"]
         }
     }
 }

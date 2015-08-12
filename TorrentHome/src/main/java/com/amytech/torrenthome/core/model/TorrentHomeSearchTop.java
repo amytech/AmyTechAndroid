@@ -14,6 +14,7 @@ public class TorrentHomeSearchTop extends BmobObject {
     private String tabName = "标签";
     private String type = "类型";
     private String area = "地区";
+    private String watchURL = "播放地址";
 
     //电影,电视剧
     private String director = "导演";
@@ -40,7 +41,7 @@ public class TorrentHomeSearchTop extends BmobObject {
      * @param source      来源
      * @param compere     主持人
      */
-    public TorrentHomeSearchTop(int order, String name, String description, String imageURL, String tabName, String type, String area, String director, String starring, String source, String compere) {
+    public TorrentHomeSearchTop(int order, String name, String description, String imageURL, String tabName, String type, String area, String director, String starring, String source, String compere, String watchURL) {
         this.order = order;
         this.name = name;
         this.description = description;
@@ -52,6 +53,7 @@ public class TorrentHomeSearchTop extends BmobObject {
         this.starring = starring;
         this.source = source;
         this.compere = compere;
+        this.watchURL = watchURL;
     }
 
     public String getName() {
@@ -132,6 +134,14 @@ public class TorrentHomeSearchTop extends BmobObject {
 
     public void setCompere(String compere) {
         this.compere = compere;
+    }
+
+    public String getWatchURL() {
+        return watchURL;
+    }
+
+    public void setWatchURL(String watchURL) {
+        this.watchURL = watchURL;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.amytech.torrenthome.core.view;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amytech.android.framework.utils.AppUtils;
 import com.amytech.android.framework.utils.CollectionUtils;
 import com.amytech.android.framework.utils.ImageUtils;
 import com.amytech.android.framework.utils.StringUtils;
@@ -185,7 +187,7 @@ public class HomeActivity extends BaseActivity implements SearchTopController.Se
             TextView itemSource = (TextView) convertView.findViewById(R.id.home_item_source);
             TextView itemCompere = (TextView) convertView.findViewById(R.id.home_item_compere);
             TextView itemDescription = (TextView) convertView.findViewById(R.id.home_item_description);
-            View itemDownload = convertView.findViewById(R.id.home_start_download);
+            final TextView itemWatch = (TextView) convertView.findViewById(R.id.home_watch_online);
 
             View itemTypeView = convertView.findViewById(R.id.item_type_layout);
             itemTypeView.setVisibility(View.GONE);
@@ -259,7 +261,25 @@ public class HomeActivity extends BaseActivity implements SearchTopController.Se
                 itemCompereView.setVisibility(View.GONE);
             }
 
-            itemDownload.setOnClickListener(new View.OnClickListener() {
+            if (!StringUtils.isEquals(item.getWatchURL(), "N/A")) {
+                itemWatch.setText(R.string.item_watch_online);
+                itemWatch.setEnabled(true);
+                itemWatch.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            AppUtils.openURI(Uri.parse(item.getWatchURL()));
+                        } catch (Exception e) {
+                            showToast("在线播放失败");
+                        }
+                    }
+                });
+            } else {
+                itemWatch.setText(R.string.item_watch_no);
+                itemWatch.setEnabled(false);
+            }
+
+            convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     toSearchResultActivity(item.getName());
