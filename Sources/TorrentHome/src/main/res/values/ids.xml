@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="menu_share" type="id" />
+    <item name="menu_feedback" type="id" />
+    <item name="submenu_qq" type="id" />
+    <item name="submenu_wx" type="id" />
+    <item name="submenu_wxf" type="id" />
+</resources>

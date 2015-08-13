@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">种子之家</string>
+    <string name="check_update_new_title">发现新版本 -> {0}</string>
+    <string name="check_update_new_context">更新内容：\n{0}</string>
+    <string name="check_update_cancel">稍后更新</string>
+    <string name="check_update_download">现在更新</string>
+    <string name="share_title">史上最NB软件分享 -> 种子之家</string>
+    <string name="share_summary">一款功能强大的资源搜索工具。 基于先进的P2P搜索技术，可在瞬间搜遍全球ED2k网络资源</string>
+    <string name="share_target_url">http://torrenthome.bmob.cn/</string>
+    <string name="share_image_url">http://i3.tietuku.com/af03829f685509f7.png</string>
+    <string name="showcase_share_title">好东西别藏着</string>
+    <string name="showcase_share">如果感觉软件很好用的话，请分享给其他朋友</string>
+    <string name="showcase_more_title">软件的更多功能</string>
+    <string name="showcase_more">用户反馈 ->\n如果使用中有任何问题，请联系我们</string>
+    <string name="showcase_search_title">强大的搜索功能</string>
+    <string name="showcase_search">基于先进的P2P搜索技术，可在瞬间搜遍全球ED2k网络资源</string>
+    <string name="showcase_search_result_title">快来尝试下载</string>
+    <string name="showcase_search_result">点击该条数据即可下载\n强烈推荐手机迅雷下载，速度嗷嗷的。</string>
+
+    <!-- SplashActivity -->
+    <string name="connect_server_failure">搜索服务器连接失败\n请稍后再试</string>
+
+    <!-- HomeActivity -->
+    <string name="item_watch_online">在线观看</string>
+    <string name="item_watch_no">暂无</string>
+    <string name="home_label">热搜排行</string>
+    <string name="item_description">介绍</string>
+    <string name="item_type">类型</string>
+    <string name="item_area">地区</string>
+    <string name="item_director">导演</string>
+    <string name="item_starring">主演</string>
+    <string name="item_source">来源</string>
+    <string name="item_compere">主持人</string>
+    <string name="check_no_sohu">检测到没有安装搜狐视频，只能在线观看5分钟。</string>
+    <string name="sohu_goto">随便啦，5分钟我也看</string>
+    <string name="sohu_cancel">先不看了</string>
+
+    <!-- SearchResultActivity -->
+    <string name="no_downloader_title">无法找到下载工具</string>
+    <string name="no_downloader">推荐下载手机迅雷，享受飞一般的下载速度。</string>
+    <string name="no_downloader_cancel">稍后我自己下载</string>
+    <string name="no_downloader_xunlei">去下载手机迅雷</string>
+</resources>

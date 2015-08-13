@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:circleprogress="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_base_background">
+
+    <LinearLayout
+        android:id="@+id/status_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <com.amytech.android.framework.view.widget.progressbar.CircleProgress
+            android:id="@+id/circle_progress"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            circleprogress:circle_max="100"
+            circleprogress:circle_progress="0" />
+
+        <ImageView
+            android:id="@+id/loading_error_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_loading_error"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/loading_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/status_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/waitting"
+        android:textColor="@color/color_base_title"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/reload_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/selector_button_blue"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/reload"
+        android:textColor="@color/color_base_title"
+        android:textSize="22sp"
+        android:visibility="gone" />
+
+</RelativeLayout>
