@@ -5,16 +5,16 @@
       <GradleProjectSettings>
         <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="$PROJECT_DIR$/../gradle-2.5" />
+        <option name="gradleHome" value="E:/gradle-2.5" />
+        <option name="gradleJvm" value="1.7" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/BaseFramework" />
-            <option value="$PROJECT_DIR$/FindTMallMM" />
+            <option value="$PROJECT_DIR$/TorrentHome" />
           </set>
         </option>
       </GradleProjectSettings>
     </option>
   </component>
 </project>
-
