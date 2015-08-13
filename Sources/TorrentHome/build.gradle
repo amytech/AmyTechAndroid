@@ -5,7 +5,7 @@ android {
         signing {
             keyAlias 'amytech'
             keyPassword 'wynztl060922'
-            storeFile file('E:/AmyTechAndroid/CommonFiles/publish.keystore')
+            storeFile file('../../CommonFiles/publish.keystore')
             storePassword 'wynztl060922'
         }
     }
@@ -54,6 +54,12 @@ android {
         }
         _google {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Google"]
+        }
+        _huawei {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Huawei"]
+        }
+        _xiao_mi {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "XiaoMi"]
         }
         _umeng {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "UMeng"]
