@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Process;
 
 import com.amytech.android.framework.BaseApplication;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class AppUtils {
         NLog.d("Application will exit.");
         System.exit(0);
         Process.killProcess(Process.myPid());
+        MobclickAgent.onKillProcess(context);
     }
 
     /**

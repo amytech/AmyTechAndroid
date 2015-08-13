@@ -4,9 +4,12 @@ import android.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.amytech.android.framework.utils.ShareUtils;
+import com.amytech.android.framework.utils.UMengUtils;
 import com.amytech.android.framework.view.BaseActivity;
 import com.amytech.torrenthome.BuildConfig;
 import com.amytech.torrenthome.R;
+import com.amytech.torrenthome.core.TorrentApp;
 import com.amytech.torrenthome.core.controller.ConfigController;
 import com.amytech.torrenthome.core.controller.SearchTopCommiter;
 
@@ -29,7 +32,7 @@ public class SplashActivity extends BaseActivity implements ConfigController.Con
 
     @Override
     protected void initViews() {
-
+        ShareUtils.init(this, "1104812862", "1104812862");
     }
 
     @Override
@@ -59,6 +62,7 @@ public class SplashActivity extends BaseActivity implements ConfigController.Con
 
     @Override
     public void loadConfFailure(int errorCode, String error) {
+        UMengUtils.onEvent(this, TorrentApp.UMENG_EVENT_SERVER_ERROR, error);
         showToast(R.string.connect_server_failure);
     }
 

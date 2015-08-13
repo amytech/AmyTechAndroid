@@ -13,6 +13,7 @@ import android.view.Window;
 import android.widget.Toast;
 
 import com.amytech.android.framework.utils.SPUtils;
+import com.umeng.analytics.MobclickAgent;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -98,6 +99,16 @@ public abstract class BaseActivity extends FragmentActivity {
             }
         }
         return super.onMenuOpened(featureId, menu);
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     private void setOverflowShowingAlways() {

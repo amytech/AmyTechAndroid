@@ -12,8 +12,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.amytech.android.framework.utils.AppUtils;
+import com.amytech.android.framework.utils.UMengUtils;
 import com.amytech.android.framework.view.BaseActivity;
 import com.amytech.torrenthome.R;
+import com.amytech.torrenthome.core.TorrentApp;
 import com.amytech.torrenthome.core.controller.SearchController;
 import com.amytech.torrenthome.core.model.SearchResultData;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -21,11 +23,16 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by marktlzhai on 2015/8/12.
  */
 public class SearchResultActivity extends BaseActivity implements SearchController.SearchListener {
+
+    private static final String XUNLEI_PACKAGE = "com.xunlei.downloadprovider";
 
     public static final String DATAKEY_SEARCH_KEYWORLD = "DATAKEY_SEARCH_KEYWORLD";
 
@@ -37,12 +44,15 @@ public class SearchResultActivity extends BaseActivity implements SearchControll
 
     private int currentPage = 1;
 
+    private static long startTime;
+
     @Override
     protected void loadData() {
         requestSearch();
     }
 
     private void requestSearch() {
+        startTime = System.currentTimeMillis();
         String keyWorld = getIntent().getStringExtra(DATAKEY_SEARCH_KEYWORLD);
         actionBar.setTitle(keyWorld);
 
@@ -95,6 +105,9 @@ public class SearchResultActivity extends BaseActivity implements SearchControll
 
     @Override
     public void onSearchSuccess(int currentPage, List<SearchResultData> result) {
+
+        long endTime = System.currentTimeMillis();
+        UMengUtils.onEventValue(this, TorrentApp.UMENG_EVENT_SEARCH_TIME, null, new Long(endTime).intValue());
 
         searchResultList.onRefreshComplete();
 
@@ -171,7 +184,29 @@ public class SearchResultActivity extends BaseActivity implements SearchControll
                     try {
                         AppUtils.openURI(Uri.parse(item.downloadURL));
                     } catch (Exception e) {
-                        showToast("无法启动下载");
+                        final SweetAlertDialog dialog = new SweetAlertDialog(SearchResultActivity.this);
+                        dialog.setTitleText(getString(R.string.no_downloader_title));
+                        dialog.setContentText(getString(R.string.no_downloader));
+                        dialog.setConfirmText(getString(R.string.no_downloader_xunlei));
+                        dialog.setCancelText(getString(R.string.no_downloader_cancel));
+                        dialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                if (dialog != null && dialog.isShowing()) {
+                                    dialog.dismissWithAnimation();
+                                }
+                            }
+                        });
+                        dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                AppUtils.openMarket(XUNLEI_PACKAGE);
+                                if (dialog != null && dialog.isShowing()) {
+                                    dialog.dismissWithAnimation();
+                                }
+                            }
+                        });
+                        dialog.show();
                     }
                 }
             });

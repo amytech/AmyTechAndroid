@@ -1,11 +1,14 @@
 <resources>
     <string name="app_name">【官方】种子之家</string>
+    <string name="share_title">史上最NB软件分享 -> 种子之家</string>
+    <string name="share_summary">一款功能强大的资源搜索工具。 基于先进的P2P搜索技术，可在瞬间搜遍全球ED2k网络资源</string>
+    <string name="share_target_url">http://torrenthome.bmob.cn/</string>
+    <string name="share_image_url">http://i3.tietuku.com/af03829f685509f7.png</string>
 
     <!-- SplashActivity -->
     <string name="connect_server_failure">搜索服务器连接失败\n请稍后再试</string>
 
     <!-- HomeActivity -->
-
     <string name="item_watch_online">在线观看</string>
     <string name="item_watch_no">暂无</string>
     <string name="home_label">热搜排行</string>
@@ -16,4 +19,13 @@
     <string name="item_starring">主演</string>
     <string name="item_source">来源</string>
     <string name="item_compere">主持人</string>
+    <string name="check_no_sohu">检测到没有安装搜狐视频，只能在线观看5分钟。</string>
+    <string name="sohu_goto">随便啦，5分钟我也看</string>
+    <string name="sohu_cancel">先不看了</string>
+
+    <!-- SearchResultActivity -->
+    <string name="no_downloader_title">无法找到下载工具</string>
+    <string name="no_downloader">推荐下载手机迅雷，享受飞一般的下载速度。</string>
+    <string name="no_downloader_cancel">稍后我自己下载</string>
+    <string name="no_downloader_xunlei">去下载手机迅雷</string>
 </resources>
