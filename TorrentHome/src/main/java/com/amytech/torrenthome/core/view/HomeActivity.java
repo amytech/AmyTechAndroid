@@ -22,6 +22,7 @@ import com.amytech.android.framework.utils.AppUtils;
 import com.amytech.android.framework.utils.CollectionUtils;
 import com.amytech.android.framework.utils.ImageUtils;
 import com.amytech.android.framework.utils.ShareUtils;
+import com.amytech.android.framework.utils.ShowcaseUtils;
 import com.amytech.android.framework.utils.StringUtils;
 import com.amytech.android.framework.utils.UMengUtils;
 import com.amytech.android.framework.view.BaseActivity;
@@ -30,9 +31,14 @@ import com.amytech.torrenthome.core.TorrentApp;
 import com.amytech.torrenthome.core.controller.SearchTopController;
 import com.amytech.torrenthome.core.model.TorrentHomeSearchTop;
 import com.amytech.torrenthome.core.view.widget.SearchView;
+import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
+import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.UiError;
+import com.umeng.update.UpdateResponse;
 
+import java.io.File;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,11 +55,6 @@ public class HomeActivity extends BaseActivity implements SearchTopController.Se
     private static final String SOHU_VIDEO = "com.sohu.sohuvideo";
     private static final String SOHU_TV = "com.sohu.tv";
 
-    private static final int MENU_ITEM_SHARE = 1;
-    private static final int MENU_ITEM_SHARE_QQ = 11;
-    private static final int MENU_ITEM_SHARE_WX = 12;
-    private static final int MENU_ITEM_SHARE_WX_TIMELINE = 13;
-
     private static final String SP_STR_LAST_SELECT_TAB = "LAST_SELECT_TAB";
 
     private Map<String, List<TorrentHomeSearchTop>> topData;
@@ -66,6 +67,46 @@ public class HomeActivity extends BaseActivity implements SearchTopController.Se
     @Override
     protected void loadData() {
         SearchTopController.getInstance(this).getTopData(this);
+        //检查更新
+        UMengUtils.checkUpdate(this, true, new UMengUtils.CheckUpdateCallback() {
+            @Override
+            public void hasUpdate(final UpdateResponse updateResponse) {
+                final SweetAlertDialog dialog = new SweetAlertDialog(HomeActivity.this);
+                dialog.setTitleText(MessageFormat.format(getString(R.string.check_update_new_title), updateResponse.version));
+                dialog.setContentText(MessageFormat.format(getString(R.string.check_update_new_context), updateResponse.updateLog));
+                dialog.setCancelText(getString(R.string.check_update_cancel));
+                dialog.setConfirmText(getString(R.string.check_update_download));
+                dialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        if (dialog != null && dialog.isShowing()) {
+                            dialog.dismissWithAnimation();
+                        }
+                    }
+                });
+                dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        if (dialog != null && dialog.isShowing()) {
+                            dialog.dismissWithAnimation();
+                        }
+
+                        File downloadAPK = UMengUtils.getDownloadedFile(HomeActivity.this, updateResponse);
+                        if (downloadAPK != null && downloadAPK.exists() && downloadAPK.isFile()) {
+                            UMengUtils.installDownload(HomeActivity.this, downloadAPK);
+                        } else {
+                            UMengUtils.startDownloadUpdate(HomeActivity.this, updateResponse);
+                        }
+                    }
+                });
+                dialog.show();
+            }
+
+            @Override
+            public void noUpdate() {
+
+            }
+        });
     }
 
     @Override
@@ -75,7 +116,7 @@ public class HomeActivity extends BaseActivity implements SearchTopController.Se
 
     @Override
     protected void initActionBar(ActionBar actionBar, Menu menu) {
-        MenuItem searchItem = menu.add(0, MENU_ITEM_SHARE, 0, "");
+        MenuItem searchItem = menu.add(0, R.id.menu_share, 0, R.string.share_to);
         searchItem.setIcon(R.drawable.topbar_share);
         searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         searchItem.setActionProvider(new ActionProvider(this) {
@@ -88,9 +129,9 @@ public class HomeActivity extends BaseActivity implements SearchTopController.Se
             public void onPrepareSubMenu(SubMenu subMenu) {
                 subMenu.clear();
 
-                subMenu.add(0, MENU_ITEM_SHARE_QQ, 0, R.string.share_to_qq).setIcon(R.drawable.selector_share_qq);
-                subMenu.add(0, MENU_ITEM_SHARE_WX, 0, R.string.share_to_wx).setIcon(R.drawable.selector_share_wx);
-                subMenu.add(0, MENU_ITEM_SHARE_WX_TIMELINE, 0, R.string.share_to_wx_timeline).setIcon(R.drawable.selector_share_wx_f);
+                subMenu.add(0, R.id.submenu_qq, 0, R.string.share_to_qq).setIcon(R.drawable.selector_share_qq);
+                subMenu.add(0, R.id.submenu_wx, 0, R.string.share_to_wx).setIcon(R.drawable.selector_share_wx);
+                subMenu.add(0, R.id.submenu_wxf, 0, R.string.share_to_wx_timeline).setIcon(R.drawable.selector_share_wx_f);
             }
 
             @Override
@@ -98,6 +139,10 @@ public class HomeActivity extends BaseActivity implements SearchTopController.Se
                 return true;
             }
         });
+
+        MenuItem feedbackItem = menu.add(0, R.id.menu_feedback, 1, R.string.umeng_fb_feedback);
+        feedbackItem.setIcon(R.drawable.topbar_rss);
+        feedbackItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
     }
@@ -115,23 +160,67 @@ public class HomeActivity extends BaseActivity implements SearchTopController.Se
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (!StringUtils.isEquals(spUtils.getString(TorrentApp.SP_STRING_SHOWCASE_HOME_VERSION, ""), AppUtils.getVersionName())) {
+            ShowcaseUtils.showcaseForActionItem(this, R.id.menu_share, R.string.showcase_share_title, R.string.showcase_share, new OnShowcaseEventListener() {
+                @Override
+                public void onShowcaseViewHide(ShowcaseView showcaseView) {
+                    spUtils.putString(TorrentApp.SP_STRING_SHOWCASE_HOME_VERSION, AppUtils.getVersionName());
+                    ShowcaseUtils.showcaseForActionItem(HomeActivity.this, R.id.menu_feedback, R.string.showcase_more_title, R.string.showcase_more, new OnShowcaseEventListener() {
+                        @Override
+                        public void onShowcaseViewHide(ShowcaseView showcaseView) {
+                            ShowcaseUtils.showcaseForView(HomeActivity.this, searchView, R.string.showcase_search_title, R.string.showcase_search, null);
+                        }
+
+                        @Override
+                        public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
+
+                        }
+
+                        @Override
+                        public void onShowcaseViewShow(ShowcaseView showcaseView) {
+
+                        }
+                    });
+                }
+
+                @Override
+                public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
+
+                }
+
+                @Override
+                public void onShowcaseViewShow(ShowcaseView showcaseView) {
+
+                }
+            });
+        }
+    }
+
+    @Override
     protected void onActionBarClicked(MenuItem item) {
         int itemID = item.getItemId();
 
+        //用户反馈
+        if (itemID == R.id.menu_feedback) {
+            UMengUtils.openFeedback(this);
+        }
+
         //分享到QQ
-        if (itemID == MENU_ITEM_SHARE_QQ) {
+        if (itemID == R.id.submenu_qq) {
             ShareUtils.share2QQ(getString(R.string.share_title), getString(R.string.share_summary), getString(R.string.share_target_url), getString(R.string.share_image_url), getString(R.string.app_name), this, null);
             UMengUtils.onEvent(this, TorrentApp.UMENG_EVENT_SHARE, "QQ");
         }
 
         //分享到微信
-        if (itemID == MENU_ITEM_SHARE_WX) {
+        if (itemID == R.id.submenu_wx) {
             ShareUtils.share2WX(getString(R.string.share_title), getString(R.string.share_summary), getString(R.string.share_target_url), BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher), false);
             UMengUtils.onEvent(this, TorrentApp.UMENG_EVENT_SHARE, "WX");
         }
 
         //分享到朋友圈
-        if (itemID == MENU_ITEM_SHARE_WX_TIMELINE) {
+        if (itemID == R.id.submenu_wxf) {
             ShareUtils.share2WX(getString(R.string.share_title), getString(R.string.share_summary), getString(R.string.share_target_url), BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher), true);
             UMengUtils.onEvent(this, TorrentApp.UMENG_EVENT_SHARE, "WX_LINE");
         }

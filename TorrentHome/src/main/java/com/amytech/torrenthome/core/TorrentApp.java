@@ -17,4 +17,6 @@ public class TorrentApp extends BaseApplication {
     public static final String UMENG_EVENT_SHARE = "SHARE";
     public static final String UMENG_EVENT_TOP_ITEM_CLICK = "TOP_ITEM_CLICK";
     public static final String UMENG_EVENT_TOP_ITEM_PLAY = "TOP_ITEM_PLAY";
+
+    public static final String SP_STRING_SHOWCASE_HOME_VERSION = "SP_STRING_SHOWCASE_VERSION";
 }

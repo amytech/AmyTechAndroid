@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Default_Showcase_Text" parent="TextAppearance.ShowcaseView.Detail.Light">
+        <item name="android:textColor">#EEEEEE</item>
+        <item name="android:shadowColor">#FF0000</item>
+        <item name="android:shadowRadius">0</item>
+    </style>
+
+    <style name="Default_Showcase_Style" parent="ShowcaseView">
+        <item name="sv_titleTextAppearance">@style/TextAppearance.ShowcaseView.Title</item>
+        <item name="sv_detailTextAppearance">@style/Default_Showcase_Text</item>
+        <item name="sv_backgroundColor">#EE3C4552</item>
+        <item name="sv_buttonText">@string/ok</item>
+    </style>
+</resources>

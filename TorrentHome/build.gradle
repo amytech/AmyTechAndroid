@@ -16,7 +16,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0.0 Bate"
+        versionName "1.1.0"
         signingConfig signingConfigs.signing
         multiDexEnabled true
     }
@@ -54,6 +54,9 @@ android {
         }
         _google {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Google"]
+        }
+        _umeng {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "UMeng"]
         }
     }
 }

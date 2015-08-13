@@ -5,6 +5,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.amytech.android.framework.utils.ShareUtils;
+import com.amytech.android.framework.utils.ShowcaseUtils;
 import com.amytech.android.framework.utils.UMengUtils;
 import com.amytech.android.framework.view.BaseActivity;
 import com.amytech.torrenthome.BuildConfig;
@@ -18,6 +19,7 @@ public class SplashActivity extends BaseActivity implements ConfigController.Con
     @Override
     protected void loadData() {
         ConfigController.getInstance(this).loadConfig(this);
+        UMengUtils.syncFeedback(this);
     }
 
     @Override
