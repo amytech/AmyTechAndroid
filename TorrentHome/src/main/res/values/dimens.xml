@@ -1,6 +1,0 @@
-<resources>
-    <dimen name="home_item_image_width">120dp</dimen>
-    <dimen name="home_item_image_height">200dp</dimen>
-
-    <dimen name="height_item">50dp</dimen>
-</resources>
