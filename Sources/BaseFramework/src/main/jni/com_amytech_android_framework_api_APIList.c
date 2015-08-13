@@ -1,5 +1,4 @@
-
-#include "../../../../../android-ndk-r10e/platforms/android-21/arch-x86/usr/include/jni.h"
+#include <jni.h>
 
 struct _jstring *Java_com_amytech_android_framework_api_APIList_getAPPID(JNIEnv *env,
                                                                          jobject jobject1) {
